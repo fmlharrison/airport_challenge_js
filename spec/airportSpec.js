@@ -46,6 +46,16 @@ describe ("Airport", function(){
     });
   });
 
+  describe("landing in stormy weather", function() {
+    it("can't land in stormy weather", function () {
+      stormyAirport = new Airport();
+      plane = new Plane();
+      spyOn(stormyAirport.weather, "isStormy").and.returnValue(true);
+      expect(function () {
+        stormyAirport.land(plane)}).toThrow("Plane cannot land due to stormy weather");
+    });
+  });
+
   describe("plane cannot take off", function () {
     it("the plane is not in the airport", function () {
       plane = new Plane();
