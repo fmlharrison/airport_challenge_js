@@ -8,7 +8,7 @@ Airport.prototype.land = function (plane) {
   if (this.isFull() === true) {
     throw ("The airport is full, the plane can't land");
   };
-  if (this.weather.isStormy() === true) {
+  if (this.isBadWeather() === true) {
     throw ("Plane cannot land due to stormy weather");
   };
   this.landedPlanes.push(plane);
@@ -19,6 +19,9 @@ Airport.prototype.takeOff = function (plane) {
   if (!this.landedPlanes.includes(plane)) {
     throw ("This plane is not in the airport")
   }
+  if (this.isBadWeather() === true) {
+    throw ("Plane cannot take off due to stormy weather")
+  }
   var leavingPlane = this.landedPlanes.indexOf(plane);
   this.landedPlanes.splice(leavingPlane, 1);
   plane.takenOff();
@@ -28,6 +31,6 @@ Airport.prototype.isFull = function () {
   return this.landedPlanes.length >= this.capacity
 };
 
-// Airport.prototype._isBedWeather = function () {
-//   return this.weather.isStormy
-// };
+Airport.prototype.isBadWeather = function () {
+  return this.weather.isStormy
+};

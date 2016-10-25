@@ -3,7 +3,7 @@ describe ("Airport", function(){
 
 
   beforeEach(function(){
-      airport = new Airport();
+      airport = new Airport
   });
 
   describe ("airport capacity", function() {
@@ -35,7 +35,7 @@ describe ("Airport", function(){
     });
   });
 
-  describe("plan cannot land", function () {
+  describe("plane cannot land", function () {
     it("can't land if the airport is full", function () {
       fullAirport = new Airport(1);
       plane1 = new Plane();
@@ -50,7 +50,7 @@ describe ("Airport", function(){
     it("can't land in stormy weather", function () {
       stormyAirport = new Airport();
       plane = new Plane();
-      spyOn(stormyAirport.weather, "isStormy").and.returnValue(true);
+      spyOn(stormyAirport, "isBadWeather").and.returnValue(true);
       expect(function () {
         stormyAirport.land(plane)}).toThrow("Plane cannot land due to stormy weather");
     });
@@ -61,6 +61,17 @@ describe ("Airport", function(){
       plane = new Plane();
       expect(function () {
         airport.takeOff(plane);}).toThrow("This plane is not in the airport")
+    });
+  });
+
+  describe("taking off in stormy weather", function () {
+    it("the plane can't take off in stormy weather", function () {
+      stormyAirport = new Airport();
+      plane = new Plane();
+      stormyAirport.land(plane);
+      spyOn(stormyAirport, "isBadWeather").and.returnValue(true);
+      expect(function () {
+        stormyAirport.takeOff(plane)}).toThrow("Plane cannot take off due to stormy weather");
     });
   });
 });
