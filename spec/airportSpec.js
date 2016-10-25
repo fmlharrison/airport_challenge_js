@@ -20,7 +20,18 @@ describe ("Airport", function(){
     it("land the plane", function() {
       plane = new Plane();
       airport.land(plane);
-      expect(airport.landedPlanes).toEqual([plane])
+      expect(airport.landedPlanes).toEqual([plane]);
+      expect(plane.flying).toBeFalsy();
+    });
+  });
+
+  describe ("taking off plane", function() {
+    it("take off the plane", function() {
+      plane = new Plane();
+      airport.land(plane);
+      airport.takeOff(plane);
+      expect(airport.landedPlanes.includes(plane)).toBeFalsy;
+      expect(plane.flying).toBeTruthy();
     });
   });
 });
