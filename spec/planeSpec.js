@@ -20,6 +20,6 @@ describe("Plane", function (){
       plane.landed();
       plane.takenOff();
       expect(plane.flying).toBeTruthy();
-    })
+    });
   });
 });

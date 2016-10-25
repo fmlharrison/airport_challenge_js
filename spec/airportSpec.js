@@ -34,4 +34,23 @@ describe ("Airport", function(){
       expect(plane.flying).toBeTruthy();
     });
   });
+
+  describe("plan cannot land", function () {
+    it("can't land if the airport is full", function () {
+      fullAirport = new Airport(1);
+      plane1 = new Plane();
+      plane2 = new Plane();
+      fullAirport.land(plane1);
+      expect(function () {
+        fullAirport.land(plane2);}).toThrow("The airport is full, the plane can't land");
+    });
+  });
+
+  describe("plane cannot take off", function () {
+    it("the plane is not in the airport", function () {
+      plane = new Plane();
+      expect(function () {
+        airport.takeOff(plane);}).toThrow("This plane is not in the airport")
+    });
+  });
 });
