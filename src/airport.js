@@ -1,3 +1,3 @@
-function Airport() {
-  this.capacity = 20;
+function Airport(capacity = 20) {
+  this.capacity = capacity;
 };
