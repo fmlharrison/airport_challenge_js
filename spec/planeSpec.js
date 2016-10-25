@@ -5,6 +5,7 @@ describe("Plane", function (){
     plane = new Plane();
   });
 
+  
   describe("the plane is created flying", function () {
 
     it("should be flying when created", function () {

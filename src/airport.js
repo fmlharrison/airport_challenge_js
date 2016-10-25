@@ -21,10 +21,5 @@ Airport.prototype.takeOff = function (plane) {
 };
 
 Airport.prototype.isFull = function () {
-  if (this.landedPlanes.length >= this.capacity) {
-    return true;
-  }
-  else {
-    return false;
-  };
+  return this.landedPlanes.length >= this.capacity
 };
