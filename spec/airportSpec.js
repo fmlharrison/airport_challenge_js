@@ -1,9 +1,17 @@
 describe ("Airport", function(){
   var airport;
+  var plane;
+  var plane1;
+  var plane2;
+  var fullAirport = new Airport(1);
+  var stormyAirport = new Airport();
 
 
   beforeEach(function(){
-      airport = new Airport
+      airport = new Airport;
+      plane = new Plane;
+      plane1 = new Plane();
+      plane2 = new Plane();
   });
 
   describe ("airport capacity", function() {
@@ -18,7 +26,6 @@ describe ("Airport", function(){
 
   describe ("landing plane", function() {
     it("land the plane", function() {
-      plane = new Plane();
       airport.land(plane);
       expect(airport.landedPlanes).toEqual([plane]);
       expect(plane.flying).toBeFalsy();
@@ -27,7 +34,6 @@ describe ("Airport", function(){
 
   describe ("taking off plane", function() {
     it("take off the plane", function() {
-      plane = new Plane();
       airport.land(plane);
       airport.takeOff(plane);
       expect(airport.landedPlanes.includes(plane)).toBeFalsy;
@@ -37,9 +43,6 @@ describe ("Airport", function(){
 
   describe("plane cannot land", function () {
     it("can't land if the airport is full", function () {
-      fullAirport = new Airport(1);
-      plane1 = new Plane();
-      plane2 = new Plane();
       fullAirport.land(plane1);
       expect(function () {
         fullAirport.land(plane2);}).toThrow("The airport is full, the plane can't land");
@@ -48,8 +51,6 @@ describe ("Airport", function(){
 
   describe("landing in stormy weather", function() {
     it("can't land in stormy weather", function () {
-      stormyAirport = new Airport();
-      plane = new Plane();
       spyOn(stormyAirport, "isBadWeather").and.returnValue(true);
       expect(function () {
         stormyAirport.land(plane)}).toThrow("Plane cannot land due to stormy weather");
@@ -58,7 +59,6 @@ describe ("Airport", function(){
 
   describe("plane cannot take off", function () {
     it("the plane is not in the airport", function () {
-      plane = new Plane();
       expect(function () {
         airport.takeOff(plane);}).toThrow("This plane is not in the airport")
     });
@@ -66,8 +66,6 @@ describe ("Airport", function(){
 
   describe("taking off in stormy weather", function () {
     it("the plane can't take off in stormy weather", function () {
-      stormyAirport = new Airport();
-      plane = new Plane();
       stormyAirport.land(plane);
       spyOn(stormyAirport, "isBadWeather").and.returnValue(true);
       expect(function () {
