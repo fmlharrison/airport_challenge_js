@@ -16,4 +16,11 @@ describe ("Airport", function(){
     });
   });
 
+  describe ("landing plane", function() {
+    it("land the plane", function() {
+      plane = new Plane();
+      airport.land(plane);
+      expect(airport.landedPlanes).toEqual([plane])
+    });
+  });
 });
