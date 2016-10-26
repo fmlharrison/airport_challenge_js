@@ -1,7 +1,7 @@
-function Airport(capacity = 20) {
+function Airport(capacity = 20, weather = new Weather()) {
   this.capacity = capacity;
   this.landedPlanes = [];
-  this.weather = new Weather();
+  this.weather = weather;
 };
 
 Airport.prototype.land = function (plane) {
@@ -32,5 +32,5 @@ Airport.prototype.isFull = function () {
 };
 
 Airport.prototype.isBadWeather = function () {
-  return this.weather.isStormy
+  return this.weather.isStormy();
 };

@@ -3,20 +3,31 @@ describe ("Airport", function(){
   var plane;
   var plane1;
   var plane2;
-  var fullAirport = new Airport(1);
-  var stormyAirport = new Airport();
 
 
   beforeEach(function(){
-      airport = new Airport;
-      plane = new Plane;
+      stormyWeather = {
+        isStormy: function() {
+          return true;
+        }
+      }
+      sunnyWeather = {
+        isStormy: function () {
+          return false;
+        }
+      }
+      sunnyAirport = new Airport(20, sunnyWeather);
+      stormyAirport = new Airport(20, stormyWeather);
+      fullAirport = new Airport(1, sunnyWeather);
+      airport = new Airport();
+      plane = new Plane();
       plane1 = new Plane();
       plane2 = new Plane();
   });
 
   describe ("airport capacity", function() {
     it ("airport has default capacity", function(){
-      expect(airport.capacity).toEqual(20)
+      expect(sunnyAirport.capacity).toEqual(20)
     });
     it ("user can set airport capacity", function() {
       airportNew = new Airport(50);
@@ -26,17 +37,17 @@ describe ("Airport", function(){
 
   describe ("landing plane", function() {
     it("land the plane", function() {
-      airport.land(plane);
-      expect(airport.landedPlanes).toEqual([plane]);
+      sunnyAirport.land(plane);
+      expect(sunnyAirport.landedPlanes).toEqual([plane]);
       expect(plane.flying).toBeFalsy();
     });
   });
 
   describe ("taking off plane", function() {
     it("take off the plane", function() {
-      airport.land(plane);
-      airport.takeOff(plane);
-      expect(airport.landedPlanes.includes(plane)).toBeFalsy;
+      sunnyAirport.land(plane);
+      sunnyAirport.takeOff(plane);
+      expect(sunnyAirport.landedPlanes.includes(plane)).toBeFalsy;
       expect(plane.flying).toBeTruthy();
     });
   });
@@ -66,10 +77,17 @@ describe ("Airport", function(){
 
   describe("taking off in stormy weather", function () {
     it("the plane can't take off in stormy weather", function () {
-      stormyAirport.land(plane);
-      spyOn(stormyAirport, "isBadWeather").and.returnValue(true);
+      stormyAirport.landedPlanes.push(plane);
       expect(function () {
         stormyAirport.takeOff(plane)}).toThrow("Plane cannot take off due to stormy weather");
+    });
+  });
+
+  describe("isBadWeather", function () {
+    it("should have receiced the message isStormy", function () {
+      spyOn(airport.weather, "isStormy");
+      airport.isBadWeather();
+      expect(airport.weather.isStormy).toHaveBeenCalled();
     });
   });
 });
